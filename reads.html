@@ -1,135 +1,441 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebastian Janssen - Reading Log</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Log — Sebastian Janssen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ─────────────────────────────────────────── */
+    :root {
+      --bg:        #f7f6f2;
+      --surface:   #eeeae3;
+      --border:    #d4cfc6;
+      --text:      #1a1814;
+      --muted:     #6b6560;
+      --accent:    #6b2fa0;
+      --accent-dim:#8b4fc0;
+      --accent-bg: #f0e8f8;
+      --code-bg:   #ece8f5;
+      --nav-bg:    rgba(247,246,242,0.92);
+    }
+    [data-theme="dark"] {
+      --bg:        #0f0f13;
+      --surface:   #17171f;
+      --border:    #2a2a38;
+      --text:      #e8e6f0;
+      --muted:     #7a788a;
+      --accent:    #7b68ee;
+      --accent-dim:#9a8ef5;
+      --accent-bg: #1a1828;
+      --code-bg:   #1d1b30;
+      --nav-bg:    rgba(15,15,19,0.92);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.025;
+      background-image:
+        repeating-linear-gradient(0deg,   var(--border) 0, var(--border) 1px, transparent 0, transparent 48px),
+        repeating-linear-gradient(90deg,  var(--border) 0, var(--border) 1px, transparent 0, transparent 48px);
+      transition: opacity 0.3s;
+    }
+    [data-theme="dark"] body::before { opacity: 0.04; }
+
+    /* ── Nav ───────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); background: var(--accent-bg); }
+    .nav-links a.active { color: var(--accent); }
+
+    #theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 34px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      margin-left: 0.5rem;
+    }
+    #theme-toggle:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+
+    /* ── Main ──────────────────────────────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────── */
+    .hero {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 580px;
+    }
+
+    /* ── Section label ─────────────────────────────────────── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Stats row ─────────────────────────────────────────── */
+    .stats-row {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Book list ─────────────────────────────────────────── */
+    .book-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .book-entry {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .book-entry:first-child { border-top: 1px solid var(--border); }
+
+    .book-cover-wrap {
+      position: relative;
+    }
+    .book-cover-wrap img {
+      width: 80px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      display: block;
+      background: var(--surface);
+    }
+    
+
+    .book-meta { display: flex; flex-direction: column; gap: 0.25rem; }
+
+    .book-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-bottom: 0.1rem;
+    }
+    .book-authors {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .book-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .book-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Star rating rendered as filled/hollow ★ */
+    .book-rating {
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .book-note {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 580px;
+    }
+
+    /* ── Ornament ──────────────────────────────────────────── */
+    .ornament {
+      text-align: center;
+      color: var(--border);
+      font-size: 1.1rem;
+      margin: 3rem 0;
+      letter-spacing: 0.6em;
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+  </style>
 </head>
 <body>
-    <div class="temple-bg"></div>
-    <div class="marble-overlay"></div>
-    <div class="parallax-dots"></div>
 
-    <div class="container">
-        <header>
-            <div class="pediment">
-                <h1>SEBASTIAN JANSSEN</h1>
-                <div class="subtitle">Aspiring Mathematician &amp; Logician</div>
-            </div>
-            <nav>
-                <div class="column"><a href="index.html">Home</a></div>
-                <div class="column"><a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a></div>
-            </nav>
-        </header>
+  <nav>
+    <a class="nav-brand" href="index.html">S.W. JANSSEN</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="reads.html" class="active">Reading Log</a></li>
+      <li><a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li>
+        <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span id="theme-icon">☽</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
 
-        <main>
+  <main>
 
-            <!-- Page intro -->
-            <div class="intro-card">
-                <p>I read books (hopefully relevant to what I study) every now and again, here's the running log. I feel it's very important to read books to do with what you love to strengthen your passion, that's why I dedicated a page to this. I also felt as if I need to read a tad bit more.</p>
-            </div>
+    <!-- Hero -->
+    <header class="hero">
+      <p class="hero-eyebrow">∃ knowledge ∶ it is worth seeking</p>
+      <h1>Reading Log</h1>
+      <p class="hero-sub">I read books (hopefully relevant to what I study) every now and again, here's the running log. I feel it's very important to read books to do with what you love to strengthen your passion, that's why I dedicated a page to this. I also felt as if I need to read a tad bit more.</p>
+    </header>
 
-            <!-- Book list -->
-            <h2>My Reading Log</h2>
-
-            <div class="books-list">
-
-                <div class="book-card">
-                    <!-- Replace the placeholder with an <img> once you have a cover:
-                         <img class="book-cover" src="covers/your-book.jpg" alt="Book Title"> -->
-                    <img class = "book-cover" src="godels_proof.png">
-                    <div class="book-info">
-                        <div class="book-title">Gödel's Proof (Revised Edition)</div>
-                        <div class="book-author">Ernest Bafel, James R. Newman, Dougls R. Hofstadter</div>
-                        <div class="book-meta">
-                            <div class="book-date">Read: March 2026</div>
-                            <div class="book-rating">
-                                <span class="label">Rating</span>
-                                <span class="score">8</span>
-                                <span class="out-of">/ 10</span>
-                            </div>
-                        </div>
-                        <div class="book-summary">
-                            I started reading this after receiving the results to my first ever logic module, it's safe to say it convinced me to stay on track with formal logic in philosophy.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="book-card">
-                    <!-- Replace the placeholder with an <img> once you have a cover:
-                         <img class="book-cover" src="covers/your-book.jpg" alt="Book Title"> -->
-                    <img class = "book-cover" src="number_theory.png">
-                    <div class="book-info">
-                        <div class="book-title">Number Theory</div>
-                        <div class="book-author">George E. Andrews</div>
-                        <div class="book-meta">
-                            <div class="book-date">Read: August 2025</div>
-                            <div class="book-rating">
-                                <span class="label">Rating</span>
-                                <span class="score">5</span>
-                                <span class="out-of">/ 10</span>
-                            </div>
-                        </div>
-                        <div class="book-summary">
-                            I made the stupid mistake of diving into a rather complex topic a month before starting my undergraduate studies, definitely going to re-read when I have a better understanding of Abstract Algebra.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ── Book entry — duplicate this block to add more books ── -->
-                <div class="book-card">
-                    <!-- Replace the placeholder with an <img> once you have a cover:
-                         <img class="book-cover" src="covers/your-book.jpg" alt="Book Title"> -->
-                    <img class = "book-cover" src="introduction_to_mathematical_philosophy.png">
-                    <div class="book-info">
-                        <div class="book-title">Introduction to Mathematical Philosophy</div>
-                        <div class="book-author">Bertrand Russell</div>
-                        <div class="book-meta">
-                            <div class="book-date">Read: April 2024</div>
-                            <div class="book-rating">
-                                <span class="label">Rating</span>
-                                <span class="score">7</span>
-                                <span class="out-of">/ 10</span>
-                            </div>
-                        </div>
-                        <div class="book-summary">
-                            This is the book that made me choose my degree so it definitely holds alot of value, I must admit I didn't understand alot of the logical notation used on my first read.
-                        </div>
-                    </div>
-                </div>
-                <!-- ── End book entry ── -->
-
-                <div class="book-card">
-                    <!-- Replace the placeholder with an <img> once you have a cover:
-                         <img class="book-cover" src="covers/your-book.jpg" alt="Book Title"> -->
-                    <img class = "book-cover" src="zero.jpeg">
-                    <div class="book-info">
-                        <div class="book-title">Zero: The Biography of a Dangerous Idea</div>
-                        <div class="book-author">Charles Seife</div>
-                        <div class="book-meta">
-                            <div class="book-date">Read: 2020</div>
-                            <div class="book-rating">
-                                <span class="label">Rating</span>
-                                <span class="score">8</span>
-                                <span class="out-of">/ 10</span>
-                            </div>
-                        </div>
-                        <div class="book-summary">
-                            When I was younger this was a book I always went back to, and one of the only books I've read to date that focuses on the history of mathematics more than rigour, which definitely made it more accessible for me at the age of 13 when I first read it.
-                    </div>
-                </div>
-            
-
-            </div>
-        </main>
-
-        <footer>
-            <p>&copy; 2026 @27-sebastian on GitHub!</p>
-        </footer>
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Books Read</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">7.0</span>
+        <span class="stat-label">Avg. Rating</span>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Book List -->
+    <section>
+      <p class="section-label">§ 1 &nbsp; The Log</p>
+
+      <div class="book-list">
+
+        <!-- Gödel's Proof -->
+        <article class="book-entry">
+          <div class="book-cover-wrap">
+            <img src="https://27janssen.github.io/godels_proof.png" alt="Cover of Gödel's Proof" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
+          </div>
+          <div class="book-meta">
+            <div class="book-title">Gödel's Proof <span style="font-style:italic;font-weight:400;font-size:0.9rem">(Revised Edition)</span></div>
+            <div class="book-authors">Ernest Nagel, James R. Newman, Douglas R. Hofstadter</div>
+            <div class="book-tags">
+              <span class="book-date">Read: March 2026</span>
+              <span class="book-rating" title="8 out of 10">★★★★★★★★☆☆ &nbsp;8/10</span>
+            </div>
+            <p class="book-note">Read this after my first logic module results came in. It cemented my decision to pursue formal logic — if a proof can demonstrate the limits of proof itself, there's something worth dedicating a career to here.</p>
+          </div>
+        </article>
+
+        <!-- Number Theory -->
+        <article class="book-entry">
+          <div class="book-cover-wrap">
+            <img src="https://27janssen.github.io/number_theory.png" alt="Cover of Number Theory" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
+          </div>
+          <div class="book-meta">
+            <div class="book-title">Number Theory</div>
+            <div class="book-authors">George E. Andrews</div>
+            <div class="book-tags">
+              <span class="book-date">Read: August 2025</span>
+              <span class="book-rating" title="5 out of 10">★★★★★☆☆☆☆☆ &nbsp;5/10</span>
+            </div>
+            <p class="book-note">An ambitious choice for the month before starting my undergraduate — diving into a text that presupposes abstract algebra I hadn't yet studied. I'll revisit this once I have more grounding; the material itself is excellent, the timing was not.</p>
+          </div>
+        </article>
+
+        <!-- Introduction to Mathematical Philosophy -->
+        <article class="book-entry">
+          <div class="book-cover-wrap">
+            <img src="https://27janssen.github.io/introduction_to_mathematical_philosophy.png" alt="Cover of Introduction to Mathematical Philosophy" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
+          </div>
+          <div class="book-meta">
+            <div class="book-title">Introduction to Mathematical Philosophy</div>
+            <div class="book-authors">Bertrand Russell</div>
+            <div class="book-tags">
+              <span class="book-date">Read: April 2024</span>
+              <span class="book-rating" title="7 out of 10">★★★★★★★☆☆☆ &nbsp;7/10</span>
+            </div>
+            <p class="book-note">The book that decided my degree. Russell writes with a clarity rare among logicians of his era. A lot of the notation was opaque on a first read — I'd like to revisit it now with a more developed sense of formal logic.</p>
+          </div>
+        </article>
+
+        <!-- Zero -->
+        <article class="book-entry">
+          <div class="book-cover-wrap">
+            <img src="https://27janssen.github.io/zero.jpeg" alt="Cover of Zero: The Biography of a Dangerous Idea" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
+          </div>
+          <div class="book-meta">
+            <div class="book-title">Zero: The Biography of a Dangerous Idea</div>
+            <div class="book-authors">Charles Seife</div>
+            <div class="book-tags">
+              <span class="book-date">Read: 2020</span>
+              <span class="book-rating" title="8 out of 10">★★★★★★★★☆☆ &nbsp;8/10</span>
+            </div>
+            <p class="book-note">One of the few mathematics books I've returned to more than once. Seife prioritises the history and philosophy of zero over formal rigour, which made it remarkably accessible at thirteen. The dangerous idea in the title is not overstated.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="ornament">· · ∴ · ·</div>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Sebastian Janssen &nbsp;·&nbsp; @27-sebastian on GitHub</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const icon   = document.getElementById('theme-icon');
+    const html   = document.documentElement;
+
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      html.setAttribute('data-theme', saved);
+      icon.textContent = saved === 'dark' ? '☀' : '☽';
+    }
+
+    toggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const next   = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      icon.textContent = next === 'dark' ? '☀' : '☽';
+      localStorage.setItem('theme', next);
+    });
+  </script>
+
 </body>
 </html>
