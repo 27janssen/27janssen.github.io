@@ -36,3 +36,23 @@ window.addEventListener('load', function () {
 
     updateParallax();
 });
+// ── Theme toggle (all pages) ─────────────────────────────────────────────
+(function () {
+  var toggle = document.getElementById('theme-toggle');
+  var icon   = document.getElementById('theme-icon');
+  var html   = document.documentElement;
+
+  var saved = localStorage.getItem('theme');
+  if (saved) {
+    html.setAttribute('data-theme', saved);
+    icon.textContent = saved === 'dark' ? '☀' : '☽';
+  }
+
+  toggle.addEventListener('click', function () {
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    var next   = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    icon.textContent = next === 'dark' ? '☀' : '☽';
+    localStorage.setItem('theme', next);
+  });
+})();

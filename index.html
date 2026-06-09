@@ -7,266 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    /* ── Variables ─────────────────────────────────────────── */
-    :root {
-      --bg:        #f7f6f2;
-      --surface:   #eeeae3;
-      --border:    #d4cfc6;
-      --text:      #1a1814;
-      --muted:     #6b6560;
-      --accent:    #6b2fa0;
-      --accent-dim:#8b4fc0;
-      --accent-bg: #f0e8f8;
-      --code-bg:   #ece8f5;
-      --nav-bg:    rgba(247,246,242,0.92);
-    }
-    [data-theme="dark"] {
-      --bg:        #0f0f13;
-      --surface:   #17171f;
-      --border:    #2a2a38;
-      --text:      #e8e6f0;
-      --muted:     #7a788a;
-      --accent:    #7b68ee;
-      --accent-dim:#9a8ef5;
-      --accent-bg: #1a1828;
-      --code-bg:   #1d1b30;
-      --nav-bg:    rgba(15,15,19,0.92);
-    }
-
-    /* ── Reset ─────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.7;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    /* ── Math background pattern ───────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.025;
-      background-image:
-        repeating-linear-gradient(0deg,   var(--border) 0, var(--border) 1px, transparent 0, transparent 48px),
-        repeating-linear-gradient(90deg,  var(--border) 0, var(--border) 1px, transparent 0, transparent 48px);
-      transition: opacity 0.3s;
-    }
-    [data-theme="dark"] body::before { opacity: 0.04; }
-
-    /* ── Navigation ────────────────────────────────────────── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--nav-bg);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-      transition: background 0.3s, border-color 0.3s;
-    }
-    .nav-brand {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      text-decoration: none;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 0.3rem 0.7rem;
-      border-radius: 4px;
-      transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); background: var(--accent-bg); }
-    .nav-links a.active { color: var(--accent); }
-
-    /* Dark mode toggle */
-    #theme-toggle {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      width: 34px;
-      height: 28px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 0.85rem;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      margin-left: 0.5rem;
-    }
-    #theme-toggle:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
-
-    /* ── Main layout ───────────────────────────────────────── */
-    main {
-      position: relative;
-      z-index: 1;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem 6rem;
-    }
-
-    /* ── Hero ──────────────────────────────────────────────── */
-    .hero {
-      border-left: 3px solid var(--accent);
-      padding-left: 1.5rem;
-      margin-bottom: 4rem;
-    }
-    .hero-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      line-height: 1.15;
-      margin-bottom: 0.75rem;
-    }
-    .hero-sub {
-      color: var(--muted);
-      font-size: 1.05rem;
-      font-style: italic;
-    }
-
-    /* ── Section headings ──────────────────────────────────── */
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    section { margin-bottom: 3.5rem; }
-
-    /* ── About ─────────────────────────────────────────────── */
-    .about-text { color: var(--text); max-width: 640px; }
-    .about-text p { margin-bottom: 0; }
-
-    /* ── Skills ────────────────────────────────────────────── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-    .skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .skill-card:hover { border-color: var(--accent-dim); }
-
-    .skill-symbol {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-    .skill-name {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.35rem;
-    }
-    .skill-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* ── Contact ───────────────────────────────────────────── */
-    .contact-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .contact-list li {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-    }
-    .contact-key {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      min-width: 80px;
-      letter-spacing: 0.04em;
-    }
-    .contact-val {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.97rem;
-      transition: color 0.2s;
-    }
-    .contact-val:hover { color: var(--accent-dim); text-decoration: underline; }
-
-    /* ── Divider ornament (∴) ──────────────────────────────── */
-    .ornament {
-      text-align: center;
-      color: var(--border);
-      font-size: 1.1rem;
-      margin: 3rem 0;
-      letter-spacing: 0.6em;
-    }
-
-    /* ── Footer ────────────────────────────────────────────── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 1.25rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    footer p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -291,7 +32,7 @@
 
     <!-- Hero -->
     <header class="hero">
-      <p class="hero-eyebrow">∀ x ∈ Mathematics ∶ x is worth studying</p>
+      <p class="hero-eyebrow">WHO AM I?</p>
       <h1>Sebastian Janssen</h1>
       <p class="hero-sub">Aspiring Mathematician &amp; Logician</p>
     </header>
@@ -300,7 +41,10 @@
     <section id="about">
       <p class="section-label">§ 1 &nbsp; About</p>
       <div class="about-text">
-        <p>I'm currently an undergraduate at King's College London studying BSc Mathematics & Philosophy with an interest in <em>Geometry</em> and <em>Logic</em>.</p>
+        <p>
+          I'm currently an undergraduate at King's College London studying BSc Mathematics & Philosophy with a particular interest in <em>Geometry</em>, <em>Topology</em>, <em>Philosophy of Mathematics</em> and <em>Logic</em>.
+          Right now, I'm the president for King's <em>Mathematics Society</em>, and wish to put forward my problem solving skills and creativity towards creating a better environment in my cohort.
+        </p>
       </div>
     </section>
 
@@ -319,20 +63,15 @@
 
         <div class="skill-card">
           <span class="skill-symbol">λ  &nbsp;Programming</span>
-          <div class="skill-name">C# &amp; Python</div>
-          <div class="skill-desc">I'm quite confident in making thingamajigs.</div>
+          <div class="skill-name">C#, JavaScript &amp; Python</div>
+          <div class="skill-desc">I think I need a couple more projects to show that I can do all of these</div>
         </div>
 
         <div class="skill-card">
           <span class="skill-symbol">⊢  &nbsp;Philosophy</span>
           <div class="skill-name">Philosophical Logic & the Philosophy of Mathematics</div>
-          <div class="skill-desc">I know some bits and bobs here.</div>
-        </div>
-
-        <div class="skill-card">
-          <span class="skill-symbol">∅  &nbsp;What's next?</span>
-          <div class="skill-name">???</div>
-          <div class="skill-desc">???</div>
+          <div class="skill-desc">I tend to have some pretty cool thoughts.</div>
+          
         </div>
 
       </div>
@@ -365,25 +104,6 @@
     <p>© 2026 Sebastian Janssen &nbsp;·&nbsp; @27-sebastian on GitHub</p>
   </footer>
 
-  <script>
-    const toggle = document.getElementById('theme-toggle');
-    const icon   = document.getElementById('theme-icon');
-    const html   = document.documentElement;
-
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-      html.setAttribute('data-theme', saved);
-      icon.textContent = saved === 'dark' ? '☀' : '☽';
-    }
-
-    toggle.addEventListener('click', () => {
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      const next   = isDark ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      icon.textContent = next === 'dark' ? '☀' : '☽';
-      localStorage.setItem('theme', next);
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
