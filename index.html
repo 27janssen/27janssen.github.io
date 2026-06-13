@@ -1,110 +1,160 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sebastian Janssen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <nav>
-    <a class="nav-brand" href="index.html">S.W. JANSSEN</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Interests</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="reads.html">Reading Log</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="donate.html">Donate</a></li>
-      <li><a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a></li>
-      <li>
-        <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-          <span id="theme-icon">☽</span>
-        </button>
-      </li>
-    </ul>
+  <!-- Math Canvas -->
+  <canvas id="math-canvas"></canvas>
+
+  <!-- Navigation (main, on-page sections) -->
+  <nav id="main-nav">
+    <a href="#hero" class="brand">S.W. JANSSEN</a>
+    <a href="#about">About</a>
+    <a href="#skills">Interests</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <button class="theme-toggle" id="theme-btn" title="Toggle theme">☽</button>
   </nav>
 
-  <main>
+  <!-- External nav (separate bar: Donate, Reading Log, CV) -->
+  <div class="ext-nav">
+    <a href="https://27janssen.github.io/reads.html" target="_blank">Reading Log</a>
+    <a href="https://27janssen.github.io/donate.html" target="_blank">Donate</a>
+    <a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a>
+  </div>
+
+  <div class="page-wrap">
 
     <!-- Hero -->
-    <header class="hero">
+    <section id="hero">
       <p class="hero-eyebrow">WHO IS SEBASTIAN?</p>
-      <h1>Sebastian Janssen</h1>
-      <p class="hero-sub">Aspiring Mathematician &amp; Logician</p>
-    </header>
+      <h1 class="hero-name">Sebastian<br>Janssen</h1>
+      <p class="hero-subtitle">Aspiring Mathematician &amp; Logician</p>
+      <div class="hero-cta">
+        <a href="#about" class="btn-glass primary">About Me</a>
+        <a href="#contact" class="btn-glass">Contact</a>
+        <a href="https://27janssen.github.io/projects.html" class="btn-glass">Projects ↗</a>
+      </div>
+      <div class="scroll-hint">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 3v12M4 10l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Scroll
+      </div>
+    </section>
+
+    <div class="divider">· · ∴ · ·</div>
 
     <!-- About -->
     <section id="about">
-      <p class="section-label">§ 1 &nbsp; About</p>
-      <div class="about-text">
-        <p>
-          I'm currently an undergraduate at King's College London studying BSc Mathematics & Philosophy with a particular interest in <em>Geometry</em>, <em>Topology</em>, <em>Philosophy of Mathematics</em> and <em>Logic</em>.
-          Right now, I'm the president for King's <em>Mathematics Society</em>, and wish to put forward my problem solving skills and creativity towards creating a better environment in my cohort.
+      <p class="section-eyebrow reveal">§ 1 About</p>
+      <h2 class="section-title reveal">A little about me</h2>
+      <div class="glass-card reveal">
+        <p class="about-text">
+          I'm currently an undergraduate at <em>King's College London</em> studying 
+          <em>BSc Mathematics &amp; Philosophy</em> with a particular interest in <em>Geometry</em>, 
+          <em>Topology</em>, <em>Philosophy of Mathematics</em> and <em>Logic</em>. Right now, I'm the 
+          president for King's <em>Mathematics Society</em>, and wish to put forward my problem solving 
+          skills and creativity towards creating a better environment in my cohort.
         </p>
       </div>
     </section>
 
-    <div class="ornament">· · ∴ · ·</div>
+    <div class="divider">· · ∴ · ·</div>
 
-    <!-- Skills -->
+    <!-- Skills & Interests -->
     <section id="skills">
-      <p class="section-label">§ 2 &nbsp; Skills & Interests</p>
+      <p class="section-eyebrow reveal">§ 2 Skills &amp; Interests</p>
+      <h2 class="section-title reveal">What can I do?</h2>
       <div class="skills-grid">
-
-        <div class="skill-card">
-          <span class="skill-symbol">ℝ  &nbsp;Mathematics</span>
+        <div class="skill-card reveal">
+          <span class="skill-icon">ℝ</span>
+          <div class="skill-label">Mathematics</div>
           <div class="skill-name">Pure Mathematics</div>
+          <div class="skill-sub">Geometry · Topology · Analysis</div>
           <div class="skill-desc">I'm currently studying a degree where 'Mathematics' is the first word.</div>
         </div>
-
-        <div class="skill-card">
-          <span class="skill-symbol">λ  &nbsp;Programming</span>
+        <div class="skill-card reveal">
+          <span class="skill-icon">λ</span>
+          <div class="skill-label">Programming</div>
           <div class="skill-name">C#, JavaScript &amp; Python</div>
-          <div class="skill-desc">I think I need a couple more projects to show that I can do all of these</div>
+          <div class="skill-sub"></div>
+          <div class="skill-desc">I think I need a couple more projects to show that I can do all of these. Trust me I'm not a fraud!</div>
         </div>
-
-        <div class="skill-card">
-          <span class="skill-symbol">⊢  &nbsp;Philosophy</span>
-          <div class="skill-name">Philosophical Logic & the Philosophy of Mathematics</div>
-          <div class="skill-desc">I tend to have some pretty cool thoughts.</div>
-          
+        <div class="skill-card reveal">
+          <span class="skill-icon">⊢</span>
+          <div class="skill-label">Philosophy</div>
+          <div class="skill-name">Logic</div>
+          <div class="skill-sub"></div>
+          <div class="skill-desc">I tend to have some pretty cool thoughts. I'll be learning some more Philosophy as my undergraduate degree goes along, and I'm very excited to begin Philosophy of Mathematics and learn about Higher Order Logics.</div>
         </div>
-
       </div>
     </section>
 
-    <div class="ornament">· · ∴ · ·</div>
+    <div class="divider">· · ∴ · ·</div>
+
+    <!-- Projects (inline, linking to full page) -->
+    <section id="projects">
+      <p class="section-eyebrow reveal">§ 3 Projects</p>
+      <h2 class="section-title reveal">Some of my Projects</h2>
+      <div class="project-card reveal">
+        <div class="project-status">In Progress</div>
+        <div class="project-title">KCL Maths Module Hub</div>
+        <div class="project-desc">
+          When I was picking my modules for my second year of university at King's College London, 
+          I felt as if the student resource site, KEATS, didn't have the capability to tell students 
+          what they needed to know all in the right place — what a module unlocks, what you can do 
+          with it, what you need to do in order to do it, how it's assessed, what it can lead to. 
+          What modules you pick in a Mathematics degree can make or break your experience in the field, 
+          and a tool like this has helped my cohort and those on other courses under the Department of 
+          Mathematics optimise what they pick to make sure they get the most out of their university education.
+        </div>
+        <a class="project-link" href="https://27janssen.github.io/kcl-maths-module-selection-tool/" target="_blank">→ Visit the site</a>
+      </div>
+    </section>
+
+    <div class="divider">· · ∴ · ·</div>
 
     <!-- Contact -->
     <section id="contact">
-      <p class="section-label">§ 3 &nbsp; Contact</p>
-      <ul class="contact-list">
-        <li>
-          <span class="contact-key">LinkedIn</span>
-          <a class="contact-val" href="https://www.linkedin.com/in/27janssen" target="_blank">@27janssen</a>
-        </li>
-        <li>
-          <span class="contact-key">Email</span>
-          <a class="contact-val" href="mailto:sebastianwalterjanssen@gmail.com">sebastianwalterjanssen@gmail.com</a>
-        </li>
-        <li>
-          <span class="contact-key">GitHub</span>
-          <a class="contact-val" href="https://github.com/27janssen" target="_blank">@27janssen</a>
-        </li>
-      </ul>
+      <p class="section-eyebrow reveal">§ 4 Contact</p>
+      <h2 class="section-title reveal">Get in touch</h2>
+      <div class="contact-list reveal">
+        <a class="contact-item" href="https://www.linkedin.com/in/27janssen" target="_blank">
+          <div class="contact-icon">in</div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value">@27janssen</div>
+          </div>
+        </a>
+        <a class="contact-item" href="mailto:sebastianwalterjanssen@gmail.com">
+          <div class="contact-icon">✉</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">sebastianwalterjanssen@gmail.com</div>
+          </div>
+        </a>
+        <a class="contact-item" href="https://github.com/27janssen" target="_blank">
+          <div class="contact-icon">⌥</div>
+          <div>
+            <div class="contact-label">GitHub</div>
+            <div class="contact-value">@27janssen</div>
+          </div>
+        </a>
+      </div>
     </section>
 
-  </main>
+    <footer>
+      © 2026 Sebastian Janssen · @27janssen on GitHub
+    </footer>
 
-  <footer>
-    <p>© 2026 Sebastian Janssen &nbsp;·&nbsp; @27janssen on GitHub</p>
-  </footer>
+  </div><!-- end page-wrap -->
 
-  <script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

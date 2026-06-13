@@ -1,134 +1,128 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reading Log — Sebastian Janssen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <nav>
-    <a class="nav-brand" href="index.html">S.W. JANSSEN</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="reads.html" class="active">Reading Log</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="donate.html">Donate</a></li>
-      <li><a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a></li>
-      <li>
-        <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-          <span id="theme-icon">☽</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
+<canvas id="math-canvas"></canvas>
 
-  <main>
+<nav>
+  <a href="https://27janssen.github.io/index.html" class="brand">S.W. JANSSEN</a>
+  <a href="https://27janssen.github.io/index.html#about">About</a>
+  <a href="https://27janssen.github.io/index.html#skills">Interests</a>
+  <a href="https://27janssen.github.io/index.html#projects">Projects</a>
+  <a href="https://27janssen.github.io/index.html#contact">Contact</a>
+  <button class="theme-toggle" id="theme-btn">☽</button>
+</nav>
 
-    <!-- Hero -->
-    <header class="hero">
-      <p class="hero-eyebrow">WHAT DO I READ?</p>
-      <h1>Reading Log</h1>
-      <p class="hero-sub">I read books (hopefully relevant to what I study) every now and again, here's the running log. I feel it's very important to read books to do with what you love to strengthen your passion, that's why I dedicated a page to this. I also felt as if I need to read a tad bit more.</p>
-    </header>
+<div class="ext-nav">
+  <a href="reads.html" class="active">Reading Log</a>
+  <a href="donate.html">Donate</a>
+  <a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a>
+</div>
 
-    <!-- Stats -->
-    <div class="stats-row">
-      <div class="stat">
-        <span class="stat-number">4</span>
-        <span class="stat-label">Books Read</span>
+<div class="page-wrap reads-wrap">
+
+  <div class="page-header">
+    <p class="page-eyebrow">WHAT DO I READ?</p>
+    <h1 class="page-title">My Reading Log</h1>
+    <p class="page-intro">I read books (hopefully relevant to what I study) every now and again, here's the running log. I feel it's very important to read books to do with what you love to strengthen your passion, that's why I dedicated a page to this. I also felt as if I need to read a tad bit more.</p>
+  </div>
+
+  <div class="divider reads-divider">· · ∴ · ·</div>
+
+  <div class="books-grid">
+    
+    <div class="book-card reveal">
+      <div class="book-cover-wrap">
+        <img src="https://27janssen.github.io/principles.png" alt="Principles of Mathematics Cover" loading="lazy" />
+        <div class="book-cover-overlay"></div>
       </div>
-      <div class="stat">
-        <span class="stat-number">7.0</span>
-        <span class="stat-label">Avg. Rating</span>
+      <div class="book-body">
+        <div class="book-meta">
+          <span class="book-date">Read: June 2026</span>
+          <span class="book-rating"><span class="stars">★★★★★★★★</span> 8 / 10</span>
+        </div>
+        <div class="book-title">Principles of Mathematics</div>
+        <div class="book-author">Bertrand Russell</div>
+        <div class="book-review"></div>
       </div>
     </div>
 
-    <!-- Book List -->
-    <section>
-      <p class="section-label">§ 1 &nbsp; The Log</p>
 
-      <div class="book-list">
-
-        <!-- Gödel's Proof -->
-        <article class="book-entry">
-          <div class="book-cover-wrap">
-            <img src="https://27janssen.github.io/godels_proof.png" alt="Cover of Gödel's Proof" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
-          </div>
-          <div class="book-meta">
-            <div class="book-title">Gödel's Proof <span style="font-style:italic;font-weight:400;font-size:0.9rem">(Revised Edition)</span></div>
-            <div class="book-authors">Ernest Nagel, James R. Newman, Douglas R. Hofstadter</div>
-            <div class="book-tags">
-              <span class="book-date">Read: March 2026</span>
-              <span class="book-rating" title="8 out of 10">★★★★★★★★☆☆ &nbsp;8/10</span>
-            </div>
-            <p class="book-note">This book was a great read and delivered alot of insight to me about Logic.</p>
-          </div>
-        </article>
-
-        <!-- Number Theory -->
-        <article class="book-entry">
-          <div class="book-cover-wrap">
-            <img src="https://27janssen.github.io/number_theory.png" alt="Cover of Number Theory" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
-          </div>
-          <div class="book-meta">
-            <div class="book-title">Number Theory</div>
-            <div class="book-authors">George E. Andrews</div>
-            <div class="book-tags">
-              <span class="book-date">Read: August 2025</span>
-              <span class="book-rating" title="5 out of 10">★★★★★☆☆☆☆☆ &nbsp;5/10</span>
-            </div>
-            <p class="book-note">This was definitely too high level for me, but I'll be revisiting it when I know a bit more about Number Theory.</p>
-          </div>
-        </article>
-
-        <!-- Introduction to Mathematical Philosophy -->
-        <article class="book-entry">
-          <div class="book-cover-wrap">
-            <img src="https://27janssen.github.io/introduction_to_mathematical_philosophy.png" alt="Cover of Introduction to Mathematical Philosophy" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
-          </div>
-          <div class="book-meta">
-            <div class="book-title">Introduction to Mathematical Philosophy</div>
-            <div class="book-authors">Bertrand Russell</div>
-            <div class="book-tags">
-              <span class="book-date">Read: April 2024</span>
-              <span class="book-rating" title="7 out of 10">★★★★★★★☆☆☆ &nbsp;7/10</span>
-            </div>
-            <p class="book-note">This book made me choose the undergraduate degree I study, and got me into Logic, so I'm highly grateful for it.</p>
-          </div>
-        </article>
-
-        <!-- Zero -->
-        <article class="book-entry">
-          <div class="book-cover-wrap">
-            <img src="https://27janssen.github.io/zero.jpeg" alt="Cover of Zero: The Biography of a Dangerous Idea" onerror="this.style.background='var(--surface)';this.removeAttribute('src')" />
-          </div>
-          <div class="book-meta">
-            <div class="book-title">Zero: The Biography of a Dangerous Idea</div>
-            <div class="book-authors">Charles Seife</div>
-            <div class="book-tags">
-              <span class="book-date">Read: 2020</span>
-              <span class="book-rating" title="8 out of 10">★★★★★★★★☆☆ &nbsp;8/10</span>
-            </div>
-            <p class="book-note">I read this when I was rather young when my father gave it to me, this definitely solidified my liking for the History of Mathematics.</p>
-          </div>
-        </article>
-
+    <div class="book-card reveal">
+      <div class="book-cover-wrap">
+        <img src="https://27janssen.github.io/godels_proof.png" alt="Gödel's Proof book cover" loading="lazy" />
+        <div class="book-cover-overlay"></div>
       </div>
-    </section>
+      <div class="book-body">
+        <div class="book-meta">
+          <span class="book-date">Read: March 2026</span>
+          <span class="book-rating"><span class="stars">★★★★★★★★</span> 8 / 10</span>
+        </div>
+        <div class="book-title">Gödel's Proof (Revised Edition)</div>
+        <div class="book-author">Ernest Nagel, James R. Newman, Douglas R. Hofstadter</div>
+        <div class="book-review">I started reading this after receiving the results to my first ever logic module, it's safe to say it convinced me to stay on track with formal logic in philosophy.</div>
+      </div>
+    </div>
 
-    <div class="ornament">· · ∴ · ·</div>
+    <div class="book-card reveal">
+      <div class="book-cover-wrap">
+        <img src="https://27janssen.github.io/number_theory.png" alt="Number Theory book cover" loading="lazy" />
+        <div class="book-cover-overlay"></div>
+      </div>
+      <div class="book-body">
+        <div class="book-meta">
+          <span class="book-date">Read: August 2025</span>
+          <span class="book-rating"><span class="stars">★★★★★</span> 5 / 10</span>
+        </div>
+        <div class="book-title">Number Theory</div>
+        <div class="book-author">George E. Andrews</div>
+        <div class="book-review">I made the stupid mistake of diving into a rather complex topic a month before starting my undergraduate studies, definitely going to re-read when I have a better understanding of Abstract Algebra.</div>
+      </div>
+    </div>
 
-  </main>
+    <div class="book-card reveal">
+      <div class="book-cover-wrap">
+        <img src="https://27janssen.github.io/introduction_to_mathematical_philosophy.png" alt="Introduction to Mathematical Philosophy book cover" loading="lazy" />
+        <div class="book-cover-overlay"></div>
+      </div>
+      <div class="book-body">
+        <div class="book-meta">
+          <span class="book-date">Read: April 2024</span>
+          <span class="book-rating"><span class="stars">★★★★★★★</span> 7 / 10</span>
+        </div>
+        <div class="book-title">Introduction to Mathematical Philosophy</div>
+        <div class="book-author">Bertrand Russell</div>
+        <div class="book-review">This is the book that made me choose my degree so it definitely holds alot of value, I must admit I didn't understand alot of the logical notation used on my first read.</div>
+      </div>
+    </div>
 
-  <footer>
-    <p>© 2026 Sebastian Janssen &nbsp;·&nbsp; @27janssen on GitHub</p>
-  </footer>
+    <div class="book-card reveal">
+      <div class="book-cover-wrap">
+        <img src="https://27janssen.github.io/zero.jpeg" alt="Zero: The Biography of a Dangerous Idea book cover" loading="lazy" />
+        <div class="book-cover-overlay"></div>
+      </div>
+      <div class="book-body">
+        <div class="book-meta">
+          <span class="book-date">Read: August 2020</span>
+          <span class="book-rating"><span class="stars">★★★★★★★★</span> 8 / 10</span>
+        </div>
+        <div class="book-title">Zero: The Biography of a Dangerous Idea</div>
+        <div class="book-author">Charles Seife</div>
+        <div class="book-review">When I was younger this was a book I always went back to, and one of the only books I've read to date that focuses on the history of mathematics more than rigour, which definitely made it more accessible for me at the age of 13 when I first read it.</div>
+      </div>
+    </div>
 
-  <script src="script.js"></script>
+  </div>
+
+  <footer>© 2026 Sebastian Janssen · @27janssen on GitHub</footer>
+</div>
+
+<script src="main.js"></script>
 </body>
 </html>

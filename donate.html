@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donate — Sebastian Janssen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <nav>
-    <a class="nav-brand" href="index.html">S.W. JANSSEN</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="reads.html">Reading Log</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="donate.html" class="active">Donate</a></li>
-      <li><a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a></li>
-      <li>
-        <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-          <span id="theme-icon">☽</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
+<canvas id="math-canvas"></canvas>
 
-  <main>
+<nav>
+  <a href="https://27janssen.github.io/index.html" class="brand">S.W. JANSSEN</a>
+  <a href="https://27janssen.github.io/index.html#about">About</a>
+  <a href="https://27janssen.github.io/index.html#skills">Interests</a>
+  <a href="https://27janssen.github.io/index.html#projects">Projects</a>
+  <a href="https://27janssen.github.io/index.html#contact">Contact</a>
+  <button class="theme-toggle" id="theme-btn">☽</button>
+</nav>
 
-    <header class="hero">
-      <p class="hero-eyebrow">HOW CAN YOU CONTRIBUTE?</p>
-      <h1>Donate</h1>
-      <p class="hero-sub">I have no reason to ask for donations other than to improve the rescources I have access to to build more projects, so I don't want to shove this into anyone's face</p>
-      <a class="project-link" href="https://buymeacoffee.com/27janssen" target="_blank">→ Buy me a Coffee!</a>
-    </header>
-  </main>
-  <footer>
-    <p>© 2026 Sebastian Janssen &nbsp;·&nbsp; @27janssen on GitHub</p>
-  </footer>
+<div class="ext-nav">
+  <a href="reads.html">Reading Log</a>
+  <a href="donate.html" class="active">Donate</a>
+  <a href="https://www.dropbox.com/scl/fi/zozpx413qcyzh26jnxc15/SEBASTIAN-JANSSEN-2.pdf?rlkey=ugkd68tko0x00bz0ahje08txz&st=dr6h5i9y&dl=0" target="_blank">CV</a>
+</div>
 
-  <script src="script.js"></script>
+<div class="page-wrap donate-wrap">
+  <div class="donate-container">
+    <p class="donate-eyebrow">HOW CAN YOU CONTRIBUTE?</p>
+    <h1 class="donate-title">Donate</h1>
+
+    <div class="donate-card">
+      <span class="donate-icon">☕</span>
+      <p class="donate-body">
+        I have no reason to ask for donations other than to improve the resources I have access to to build more projects, so I don't want to shove this into anyone's face.
+      </p>
+      <a class="donate-btn" href="https://buymeacoffee.com/27janssen" target="_blank">
+        → Buy me a Coffee!
+      </a>
+    </div>
+  </div>
+
+  <footer>© 2026 Sebastian Janssen · @27janssen on GitHub</footer>
+</div>
+
+<script src="main.js"></script>
 </body>
 </html>
