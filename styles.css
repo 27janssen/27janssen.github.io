@@ -200,7 +200,7 @@ footer {
 body.light {
   --glass-bg: rgba(255,255,255,0.55);
   --glass-border: rgba(0,0,0,0.09);
-  --glass-shadow: rgba(0,0,0,0.10);
+  --glass-shadow: rgba(0,0,0,0.10); 
   --text: #0a0a14;
   --text-dim: rgba(10,10,20,0.65);
   --text-dimmer: rgba(10,10,20,0.35);
