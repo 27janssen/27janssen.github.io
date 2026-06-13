@@ -623,7 +623,6 @@ section {
   background-clip: text;
   margin-bottom: 20px;
   animation: fadeUp 0.7s 0.1s ease both;
-  overflow: visible
 }
 
 body.light .page-title {
