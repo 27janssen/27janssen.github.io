@@ -1,11 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   FIBONACCI / GOLDEN RATIO CANVAS
-   Full-viewport, scroll-driven. Draws:
-     1. A living golden spiral that grows as you scroll
-     2. Fibonacci rectangles subdividing the viewport
-     3. Floating golden-angle phyllotaxis bloom (seeds)
-     4. Ambient mathematical text whispers
-   ═══════════════════════════════════════════════════════════════ */
 (function () {
   const canvas = document.getElementById('math-canvas');
   if (!canvas) return;
@@ -35,12 +27,12 @@
   }
   window.addEventListener('scroll', () => { scrollProgress = getScrollProgress(); }, { passive: true });
 
-  /* ── 1. Fibonacci rectangles (golden ratio grid ghost) ── */
+  /* rectangle */
   function drawFibGrid(alpha) {
     const isLight = document.body.classList.contains('light');
     const col = isLight ? '120,80,16' : '200,169,110';
 
-    // Start from top-left, subdivide by golden ratio iteratively
+    // subdivide by golden ratio iteratively starting on the top left
     ctx.save();
     ctx.globalAlpha = alpha * 0.06;
 
@@ -63,12 +55,12 @@
     ctx.restore();
   }
 
-  /* ── 2. The golden spiral ── */
+  /* golden ratio */
   function drawGoldenSpiral(ts, scroll) {
     const isLight = document.body.classList.contains('light');
-    const cx = W * 0.62, cy = H * 0.5;   // golden-ratio positioned centre
+    const cx = W * 0.62, cy = H * 0.5;   // centring the spiral
 
-    // Spiral rotates slowly and grows with scroll
+    // rotation
     const rotation = ts * 0.00008 + scroll * Math.PI * 0.8;
     const maxRadius = Math.min(W, H) * (0.22 + scroll * 0.14);
     const turns = 5 + scroll * 3;
@@ -78,7 +70,7 @@
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
 
-    // Glow pass
+    // glowyness
     ctx.globalAlpha = 0.08 + scroll * 0.06;
     ctx.strokeStyle = isLight ? '#7a5010' : '#C8A96E';
     ctx.lineWidth = isLight ? 6 : 8;
@@ -94,7 +86,7 @@
     }
     ctx.stroke();
 
-    // Crisp pass
+    // that crispy clean finish
     ctx.filter = 'none';
     ctx.globalAlpha = 0.38 + scroll * 0.2;
     ctx.strokeStyle = isLight ? '#7a5010' : '#C8A96E';
@@ -113,7 +105,7 @@
     ctx.restore();
   }
 
-  /* ── 3. Phyllotaxis bloom (sunflower seed pattern at golden angle) ── */
+  /* phyllotaxis bloom */
   function drawPhyllotaxis(ts, scroll) {
     const isLight = document.body.classList.contains('light');
     const col = isLight ? '120,80,16' : '200,169,110';
@@ -145,7 +137,7 @@
     ctx.restore();
   }
 
-  /* ── 4. Fibonacci number whispers ── */
+  /* the whispers.. */
   const FIB_NUMS = [1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987];
   const MATH_SYMBOLS = ['φ','Φ','∞','∑','∂','∫','√5','π','ℝ','∀','∃','⊢','∧','λ','≡','∈'];
 
@@ -181,7 +173,7 @@
     ctx.restore();
   }
 
-  /* ── 5. Fibonacci rectangle spiral arcs (quarter-circles) ── */
+  /* spiral arcs */
   function drawFibArcs(ts, scroll) {
     const isLight = document.body.classList.contains('light');
 
@@ -206,10 +198,10 @@
       const alpha = (0.06 + t * 0.14 + scroll * 0.08);
       const col = isLight ? `rgba(120,80,16,${alpha})` : `rgba(200,169,110,${alpha})`;
 
-      // Draw the quarter-circle arc
+      // drawin the arcs
       ctx.beginPath();
       let arcX, arcY, startAngle, endAngle;
-      // Arc origin depends on direction
+      // direction and stuff for the arcs
       switch (i % 4) {
         case 2: arcX = x;      arcY = y + prev; startAngle = -Math.PI/2; endAngle = 0;           break;
         case 3: arcX = x - sz; arcY = y;        startAngle = 0;           endAngle = Math.PI/2;   break;
@@ -221,7 +213,7 @@
       ctx.lineWidth = isLight ? 1.2 : 0.8;
       ctx.stroke();
 
-      // Advance position
+      // MOVING THEM
       x += dir[0] * sz;
       y += dir[1] * sz;
       prev = sz;
@@ -230,7 +222,7 @@
     ctx.restore();
   }
 
-  /* ── Background gradient ── */
+  /* bg */
   function drawBackground(scroll) {
     const isLight = document.body.classList.contains('light');
     const grad = ctx.createRadialGradient(
@@ -250,7 +242,7 @@
     ctx.fillRect(0, 0, W, H);
   }
 
-  /* ── Main render loop ── */
+  /* loopdy loop */
   function draw(ts) {
     animFrame++;
     ctx.clearRect(0, 0, W, H);
@@ -271,9 +263,7 @@
 })();
 
 
-/* ═══════════════════════════════════════════════════════════════
-   SCROLL REVEAL
-   ═══════════════════════════════════════════════════════════════ */
+/* what happens when you scroll? the page moves HAHA */
 (function () {
   const reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
@@ -296,9 +286,7 @@
 })();
 
 
-/* ═══════════════════════════════════════════════════════════════
-   THEME TOGGLE
-   ═══════════════════════════════════════════════════════════════ */
+/* theme button */
 (function () {
   const btn = document.getElementById('theme-btn');
   if (!btn) return;
@@ -309,9 +297,7 @@
 })();
 
 
-/* ═══════════════════════════════════════════════════════════════
-   ACTIVE NAV HIGHLIGHT (index.html only)
-   ═══════════════════════════════════════════════════════════════ */
+/* highlight navigation */
 (function () {
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('nav a[href^="#"]');
@@ -331,10 +317,7 @@
 })();
 
 
-/* ═══════════════════════════════════════════════════════════════
-   PARALLAX POSTER EFFECT
-   Sections translate subtly on scroll for ultra-poster feel
-   ═══════════════════════════════════════════════════════════════ */
+/* parallax */
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
